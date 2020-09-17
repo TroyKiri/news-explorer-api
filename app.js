@@ -1,6 +1,7 @@
 require('dotenv').config();
 // Подключение Express
 const express = require('express');
+const helmet = require('helmet');
 // Подключение ODM Mongoose
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
@@ -11,10 +12,16 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { login, createUser } = require('./controllers/users');
 const errorHandler = require('./errors/error-handler');
 const config = require('./config/config');
+const limiter = require('./middlewares/rate-limiter');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
+
+app.use(helmet());
+
+// подключаем rate-limiter
+app.use(limiter);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
