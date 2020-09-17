@@ -9,6 +9,7 @@ const routerUser = require('./routes/users');
 const routerArticle = require('./routes/articles');
 const invalidRout = require('./routes/invalid');
 const auth = require('./middlewares/auth');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { login, createUser } = require('./controllers/users');
 
 const { PORT = 3000 } = process.env;
@@ -24,6 +25,8 @@ mongoose.connect('mongodb://localhost:27017/newsexplorerdb', {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+
+app.use(requestLogger);
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({
@@ -42,6 +45,8 @@ app.post('/signup', celebrate({
 app.use('/users', auth, routerUser);
 app.use('/articles', auth, routerArticle);
 app.use('/', invalidRout);
+
+app.use(errorLogger);
 
 app.use(errors());
 app.use((err, req, res, next) => {
