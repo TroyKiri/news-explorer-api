@@ -3,6 +3,7 @@ const Article = require('../models/article');
 const NotFoundError = require('../errors/not-found-error');
 const NotCorrectDataError = require('../errors/not-correct-data-error');
 const NotCorrectReqError = require('../errors/not-correct-req-error');
+const constant = require('../config/constant');
 
 module.exports.getArticles = (req, res, next) => {
   Article.find({ owner: req.user._id })
@@ -48,7 +49,7 @@ module.exports.createArticle = (req, res, next) => {
 module.exports.deleteArticleId = (req, res, next) => {
   if (mongoose.Types.ObjectId.isValid(req.params.articleId)) {
     return Article.findById(req.params.articleId).select('+owner')
-      .orFail(() => { throw new NotFoundError(`Статьи с таким id ${req.params.articleId} нет`); })
+      .orFail(() => { throw new NotFoundError(constant.noArticleId); })
       .then((article) => {
         if (article.owner.toString() === req.user._id) {
           Article.deleteOne(article)
@@ -64,11 +65,11 @@ module.exports.deleteArticleId = (req, res, next) => {
               },
             }));
         } else {
-          throw new NotCorrectDataError('Вы не можете удалять чужие статьи');
+          throw new NotCorrectDataError(constant.notCorrectDataError);
         }
       })
       .catch((err) => next(err));
   }
-  const err = new NotCorrectReqError('К сожалению, это неверный формат id статьи');
+  const err = new NotCorrectReqError(constant.notCorrectReqError);
   return next(err);
 };

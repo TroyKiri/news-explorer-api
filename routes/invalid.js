@@ -1,8 +1,9 @@
 const invalidRouter = require('express').Router();
 const NotFoundError = require('../errors/not-found-error');
+const constant = require('../config/constant');
 
 invalidRouter.all('*', (req, res, next) => {
-  const err = new NotFoundError('Запрашиваемый ресурс не найден');
+  const err = new NotFoundError(constant.notFoundError);
   next(err);
 });
 

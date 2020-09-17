@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
 const NoUniqueEmailError = require('../errors/unique-email-error');
-const devSecret = require('../secret_key/secretKey');
+const config = require('../config/config');
+const constant = require('../config/constant');
 
 module.exports.getUser = (req, res, next) => {
   User.findById(req.user._id)
@@ -17,7 +18,7 @@ module.exports.login = (req, res, next) => {
   return User.findUserByCredentials(email, password)
     .then((user) => {
       const { NODE_ENV, JWT_SECRET } = process.env;
-      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : devSecret, { expiresIn: '7d' });
+      const token = jwt.sign({ _id: user._id }, NODE_ENV === 'production' ? JWT_SECRET : config.devSecret, { expiresIn: '7d' });
       res.send({ token });
     })
     .catch(next);
@@ -42,7 +43,7 @@ module.exports.createUser = (req, res, next) => {
         },
       }))
       .catch((e) => {
-        const err = new NoUniqueEmailError('Пользователь с таким email уже зарегистрирован');
+        const err = new NoUniqueEmailError(constant.noUniqueEmail);
         return next(err);
       }));
 };
