@@ -1,10 +1,11 @@
 require('dotenv').config();
-// Подключение Express
+// подключение Express
 const express = require('express');
-const helmet = require('helmet');
-// Подключение ODM Mongoose
-const mongoose = require('mongoose');
+// мидлвэр для объединения данных
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
+// подключение ODM Mongoose
+const mongoose = require('mongoose');
 const { celebrate, Joi, errors } = require('celebrate');
 const routers = require('./routes/index');
 const auth = require('./middlewares/auth');
@@ -14,8 +15,9 @@ const errorHandler = require('./errors/error-handler');
 const config = require('./config/config');
 const limiter = require('./middlewares/rate-limiter');
 
+// определение порта в переменных окружения
 const { PORT = 3000 } = process.env;
-
+// создание приложения
 const app = express();
 
 app.use(helmet());
@@ -23,10 +25,10 @@ app.use(helmet());
 // подключаем rate-limiter
 app.use(limiter);
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json()); // для собирания JSON-формата
+app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
 
-// Подключение к серверу mongo
+// подключение к серверу mongo
 mongoose.connect(config.adressMongo, {
   useNewUrlParser: true,
   useCreateIndex: true,
@@ -58,4 +60,5 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
+// определение порта, с которого Node будет принимать сообщения
 app.listen(PORT, () => console.log(`Порт запущенного сервера: ${PORT}`));
