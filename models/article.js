@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+// Схема для статей
 const articleSchema = new mongoose.Schema({
   keyword: {
     type: String,
@@ -39,4 +40,5 @@ const articleSchema = new mongoose.Schema({
   },
 });
 
+// экспорт и создание модели статьи
 module.exports = mongoose.model('article', articleSchema);
