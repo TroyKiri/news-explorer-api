@@ -1,6 +1,7 @@
 require('dotenv').config();
 // подключение Express
 const express = require('express');
+const cors = require('cors');
 // мидлвэр для объединения данных
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
@@ -14,6 +15,7 @@ const { login, createUser } = require('./controllers/users');
 const errorHandler = require('./errors/error-handler');
 const config = require('./config/config');
 const limiter = require('./middlewares/rate-limiter');
+const { ALLOWED_CORS } = require('./config/constant');
 
 // определение порта в переменных окружения
 const { PORT = 3000 } = process.env;
@@ -34,25 +36,9 @@ mongoose.connect(config.adressMongo, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
+app.use(cors({ origin: ALLOWED_CORS }));
 
 app.use(requestLogger);
-
-// CORS
-const allowedCors = [
-  'https://news-explorer-app.ml',
-  'http://news-explorer-app.ml',
-  'http://localhost:8080',
-  'https://troykiri.github.io',
-];
-
-app.use(function (req, res, next) {
-  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
-  // Проверяем, что значение origin есть среди разрешённых доменов
-  if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin);
-  }
-  next();
-});
 
 app.post('/signin', celebrate({
   body: Joi.object().keys({

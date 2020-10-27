@@ -17,3 +17,10 @@ module.exports = {
   wrongEmailPassword,
   notFoundError,
 };
+module.exports.ALLOWED_CORS = [
+  'https://news-explorer-app.ml',
+  'http://news-explorer-app.ml',
+  'http://localhost:8080',
+  'https://troykiri.github.io',
+  'http://troykiri.github.io',
+];
