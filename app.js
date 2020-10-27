@@ -37,7 +37,8 @@ mongoose.connect(config.adressMongo, {
   useFindAndModify: false,
 });
 app.use(cors({
-  origin: 'http://localhost:8080/',
+  origin: '*',
+  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
   credentials: true,
 }));
 
