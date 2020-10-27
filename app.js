@@ -37,7 +37,7 @@ mongoose.connect(config.adressMongo, {
   useFindAndModify: false,
 });
 app.use(cors({
-  origin: true,
+  origin: ALLOWED_CORS,
   credentials: true,
 }));
 
