@@ -41,19 +41,21 @@ mongoose.connect(config.adressMongo, {
 //   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
 //   credentials: true,
 // }));
-const allowedCors = [
-  'http://localhost:8080',
-];
+// const allowedCors = [
+//   'http://localhost:8080',
+// ];
 
-app.use(function (req, res, next) {
-  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+// app.use(function (req, res, next) {
+//   const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
 
-  if (allowedCors.includes(origin)) { // Проверяем, что значение origin есть среди разрешённых доменов
-    res.header('Access-Control-Allow-Origin', origin);
-  }
+//   if (allowedCors.includes(origin)) { // Проверяем, что значение origin есть среди разрешённых доменов
+//     res.header('Access-Control-Allow-Origin', origin);
+//   }
 
-  next();
-});
+//   next();
+// });
+
+app.use(cors({ origin: ALLOWED_CORS }));
 
 app.use(requestLogger);
 

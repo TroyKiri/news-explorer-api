@@ -21,6 +21,7 @@ module.exports.ALLOWED_CORS = [
   'https://news-explorer-app.ml',
   'http://news-explorer-app.ml',
   'http://localhost:8080',
+  'http://localhost:4200',
   'https://troykiri.github.io',
   'http://troykiri.github.io',
 ];
