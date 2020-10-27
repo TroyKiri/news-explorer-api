@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const NotCorrectDataError = require('../errors/not-correct-data-error');
 const constant = require('../config/constant');
 
+// Схема для пользователя
 const userSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -43,4 +44,5 @@ userSchema.statics.findUserByCredentials = function (email, password) {
     });
 };
 
+// экспорт и создание модели пользователя
 module.exports = mongoose.model('user', userSchema);
