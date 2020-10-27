@@ -41,8 +41,8 @@ app.use(requestLogger);
 const allowedCors = [
   'https://news-explorer-app.ml',
   'http://news-explorer-app.ml',
-  'localhost:8080',
-  'https://troykiri.github.io/news-explorer-frontend',
+  'http://localhost:8080',
+  'https://troykiri.github.io',
 ];
 
 app.use(function (req, res, next) {
