@@ -36,7 +36,10 @@ mongoose.connect(config.adressMongo, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
-app.use(cors({ origin: ALLOWED_CORS }));
+app.use(cors({
+  origin: true,
+  credentials: true,
+}));
 
 app.use(requestLogger);
 
