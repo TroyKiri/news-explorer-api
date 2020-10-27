@@ -36,11 +36,24 @@ mongoose.connect(config.adressMongo, {
   useCreateIndex: true,
   useFindAndModify: false,
 });
-app.use(cors({
-  origin: 'http://localhost:8080',
-  methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: 'http://localhost:8080',
+//   methods: 'GET, HEAD, PUT, PATCH, POST, DELETE',
+//   credentials: true,
+// }));
+const allowedCors = [
+  'http://localhost:8080',
+];
+
+app.use(function (req, res, next) {
+  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+
+  if (allowedCors.includes(origin)) { // Проверяем, что значение origin есть среди разрешённых доменов
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+
+  next();
+});
 
 app.use(requestLogger);
 
