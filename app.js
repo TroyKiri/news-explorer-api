@@ -37,6 +37,23 @@ mongoose.connect(config.adressMongo, {
 
 app.use(requestLogger);
 
+// CORS
+const allowedCors = [
+  'https://news-explorer-app.ml',
+  'http://news-explorer-app.ml',
+  'localhost:8080',
+  'https://troykiri.github.io/news-explorer-frontend',
+];
+
+app.use(function (req, res, next) {
+  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+  // Проверяем, что значение origin есть среди разрешённых доменов
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin);
+  }
+  next();
+});
+
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
