@@ -55,10 +55,10 @@ mongoose.connect(config.adressMongo, {
 //   next();
 // });
 
-app.use(cors({
-  origin: ALLOWED_CORS,
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: ALLOWED_CORS,
+//   credentials: true,
+// }));
 
 app.use(requestLogger);
 
