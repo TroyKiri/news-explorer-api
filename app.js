@@ -59,6 +59,7 @@ mongoose.connect(config.adressMongo, {
 //   origin: ALLOWED_CORS,
 //   credentials: true,
 // }));
+<<<<<<< HEAD
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT');
@@ -66,6 +67,8 @@ app.use((req, res, next) => {
 
   next();
 });
+=======
+>>>>>>> 0f8044496cd4c3ad4ea73da782d77c67f4c1dc37
 
 app.use(requestLogger);
 
