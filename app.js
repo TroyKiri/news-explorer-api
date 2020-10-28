@@ -55,20 +55,17 @@ mongoose.connect(config.adressMongo, {
 //   next();
 // });
 
-// app.use(cors({
-//   origin: ALLOWED_CORS,
-//   credentials: true,
-// }));
-<<<<<<< HEAD
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT');
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+app.use(cors({
+  origin: ALLOWED_CORS,
+  credentials: true,
+}));
+// app.use((req, res, next) => {
+//   res.header('Access-Control-Allow-Origin', '*');
+//   res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT');
+//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
-  next();
-});
-=======
->>>>>>> 0f8044496cd4c3ad4ea73da782d77c67f4c1dc37
+//   next();
+// });
 
 app.use(requestLogger);
 
