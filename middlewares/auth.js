@@ -7,7 +7,8 @@ module.exports = (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    const err = new NotCorrectDataError(constant.needAuth);
+    // const err = new NotCorrectDataError(constant.needAuth);
+    const err = new NotCorrectDataError('дошёл сюда 1');
     return next(err);
   }
 
@@ -17,7 +18,8 @@ module.exports = (req, res, next) => {
   try {
     payload = jwt.verify(token, config.devSecret);
   } catch (e) {
-    const err = new NotCorrectDataError(constant.needAuth);
+    // const err = new NotCorrectDataError(constant.needAuth);
+    const err = new NotCorrectDataError('дошёл сюда 2');
     return next(err);
   }
 
