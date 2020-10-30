@@ -18,8 +18,7 @@ module.exports = (req, res, next) => {
     const { NODE_ENV, JWT_SECRET } = process.env;
     payload = jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : config.devSecret);
   } catch (e) {
-    // const err = new NotCorrectDataError(constant.needAuth);
-    const err = new NotCorrectDataError('дошёл сюда 2');
+    const err = new NotCorrectDataError(constant.needAuth);
     return next(err);
   }
 

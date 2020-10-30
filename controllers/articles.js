@@ -34,6 +34,7 @@ module.exports.createArticle = (req, res, next) => {
   })
     .then((article) => res.send({
       article: {
+        _id: article._id,
         keyword: article.keyword,
         title: article.title,
         text: article.text,
