@@ -22,6 +22,17 @@ const { PORT = 3000 } = process.env;
 // создание приложения
 const app = express();
 
+// подключение к серверу mongo
+mongoose.connect(config.adressMongo, {
+  useNewUrlParser: true,
+  useCreateIndex: true,
+  useFindAndModify: false,
+});
+
+app.use(cors({
+  origin: ALLOWED_CORS,
+}));
+
 app.use(helmet());
 
 // подключаем rate-limiter
@@ -29,13 +40,6 @@ app.use(limiter);
 
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
-
-// подключение к серверу mongo
-mongoose.connect(config.adressMongo, {
-  useNewUrlParser: true,
-  useCreateIndex: true,
-  useFindAndModify: false,
-});
 
 // app.use(cors({
 //   origin: 'http://localhost:8080',
@@ -58,11 +62,6 @@ mongoose.connect(config.adressMongo, {
 
 //   next();
 // });
-
-app.use(cors({
-  origin: ALLOWED_CORS,
-  credentials: true,
-}));
 
 // app.use((req, res, next) => {
 //   res.header('Access-Control-Allow-Origin', '*');
