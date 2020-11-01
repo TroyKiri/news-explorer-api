@@ -46,30 +46,30 @@ mongoose.connect(config.adressMongo, {
 //   'http://localhost:8080',
 // ];
 
-app.use(function (req, res, next) {
-  const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
+// app.use(function (req, res, next) {
+//   const { origin } = req.headers; // Записываем в переменную origin соответствующий заголовок
 
-  if (ALLOWED_CORS.includes(origin)) {
-    // Проверяем, что значение origin есть среди разрешённых доменов
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-    res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
-  }
+//   if (ALLOWED_CORS.includes(origin)) {
+//     // Проверяем, что значение origin есть среди разрешённых доменов
+//     res.header('Access-Control-Allow-Origin', origin);
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     res.header('Access-Control-Allow-Methods', 'GET,HEAD,PUT,PATCH,POST,DELETE');
+//   }
 
-  next();
-});
+//   next();
+// });
 
 // app.use(cors({
 //   origin: ALLOWED_CORS,
 //   credentials: true,
 // }));
-// app.use((req, res, next) => {
-//   res.header('Access-Control-Allow-Origin', '*');
-//   res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT');
-//   res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, HEAD, OPTIONS, POST, PUT');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
 
-//   next();
-// });
+  next();
+});
 
 app.use(requestLogger);
 
