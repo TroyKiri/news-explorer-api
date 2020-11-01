@@ -36,7 +36,7 @@ app.use(cors({
 app.use(helmet());
 
 // подключаем rate-limiter
-app.use(limiter);
+// app.use(limiter);
 
 app.use(bodyParser.json()); // для собирания JSON-формата
 app.use(bodyParser.urlencoded({ extended: true })); // для приёма веб-страниц внутри POST-запроса
